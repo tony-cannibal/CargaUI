@@ -13,7 +13,7 @@ def getArea(df):
     pass
 
 
-def readFile(file):
+def readFile(file: str):
     '''Read the excel data file and return dataframes for each sheet in
     in the file along with basic information such as date area and priority.
     '''
