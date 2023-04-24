@@ -61,7 +61,10 @@ class App(tk.Tk):
         self.frame_2 = ttk.Frame(self)
         self.frame_2.pack(pady=20, fill='both', expand=True)
 
-    def get_file_dir(self):
+    ###########################################################################
+
+    def get_file_dir(self) -> None:
+        '''Get file'''
         filetypes = (
             ('Excel files', '*.xlsx'),)
         file = fd.askopenfilename(
@@ -70,7 +73,7 @@ class App(tk.Tk):
             filetypes=filetypes)
         self.file_dir.set(file)
 
-    def analizar_info(self):
+    def analizar_info(self) -> None:
         ruta = self.file_dir.get()
         self.result = carga.analisys(ruta, conn.con, False)
         apps = self.result['Aplicadores']
