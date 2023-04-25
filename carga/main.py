@@ -50,7 +50,8 @@ def main(file: str, dbase: str, out: bool) -> dict:
             status.to_excel(writer, sheet_name="status", index=False)
             cambios.to_excel(writer, sheet_name="cambios", index=False)
 
-    return fn.basic_status(errores)
+    return (fn.basic_status(errores), balanceCorte.to_dict('list'), area,
+            prioridad, fecha)
 
 
 def say_hello():

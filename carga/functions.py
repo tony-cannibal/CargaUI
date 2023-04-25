@@ -1,12 +1,25 @@
 import pandas as pd
+import constants as cn
 
 
 def getDate(df):
-    pass
+    data = df['10400']
+    f = str(data.iloc[1]['LOT'])
+    year = f[2:4]
+    month = f[4]
+    day = f[5:7]
+
+    date = f'20{year}-{cn.months[month]}-{day}'
+    return date
 
 
 def getRank(df):
-    pass
+    data = df['10400']
+    p = str(data.iloc[1]['Prioridad'])[:2]
+    if p[1] == '0':
+        return p[0]
+    else:
+        return p
 
 
 def getArea(df):
@@ -19,9 +32,11 @@ def readFile(file: str):
     '''
     df = pd.read_excel(file, sheet_name=None)
     info = file.split('/')[-1].split('.')[0].split(' ')
-    fecha = info[0]
-    prioridad = info[1][1:]
+    # fecha = info[0]
+    # prioridad = info[1][1:]
     area = info[2]
+    prioridad = getRank(df)
+    fecha = getDate(df)
     return df, fecha, prioridad, area
 
 
