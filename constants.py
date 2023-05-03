@@ -21,3 +21,11 @@ months = {
     'B': '11',
     'C': '12',
 }
+
+server = {
+    'host': '172.18.4.58',
+    'database': 'yura_elaboracion',
+    'user': 'yura_admin',
+    'password': 'Metallica24+',
+    'port': 3306
+}

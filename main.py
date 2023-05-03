@@ -70,7 +70,8 @@ class App(tk.Tk):
         self.frame_prioridad = ttk.Frame(self.master_1)
         self.frame_prioridad.pack(side='left', padx=10)
         self.prioridad_title = ttk.Label(
-            self.frame_prioridad, text='Prioridad', font='arial 12 bold underline')
+            self.frame_prioridad, text='Prioridad',
+            font='arial 12 bold underline')
         self.prioridad_title.pack(side='left', padx=5)
         self.label_prioridad = ttk.Label(
             self.frame_prioridad, text='     ', font='arial 12 ',
@@ -208,18 +209,21 @@ class App(tk.Tk):
 
     def analizar_info(self) -> None:
         ruta = self.file_dir.get()
-        res = carga.analisys(
-            ruta, conn.con, self.save_res.get())
-        self.result = res[0]
-        self.balance = res[1]
-        self.area = res[2]
-        self.prioridad = res[3]
-        self.fecha = res[4]
-        self.label_area.config(text=f' {self.area.upper()} ')
-        self.label_prioridad.config(text=f' {self.prioridad} ')
-        self.label_fecha.config(text=f' {self.fecha} ')
-        self.populate_res_table()
-        self.populate_balance_table()
+        if ruta == "" or ruta == "archivo":
+            pass
+        else:
+            res = carga.analisys(
+                ruta, conn.con, self.save_res.get())
+            self.result = res[0]
+            self.balance = res[1]
+            self.area = res[2]
+            self.prioridad = res[3]
+            self.fecha = res[4]
+            self.label_area.config(text=f' {self.area.upper()} ')
+            self.label_prioridad.config(text=f' {self.prioridad} ')
+            self.label_fecha.config(text=f' {self.fecha} ')
+            self.populate_res_table()
+            self.populate_balance_table()
 
 
 if __name__ == "__main__":
