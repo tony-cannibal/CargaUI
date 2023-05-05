@@ -1,3 +1,4 @@
+import mariadb
 from .maquinas import Maquina
 
 
@@ -45,10 +46,11 @@ def getApps(df):
     return apps
 
 
-def getGroms(con):
+def getGroms(db):
+    con = mariadb.connect(**db)
     cur = con.cursor()
-    res = cur.execute("""SELECT * FROM grometeras""")
-    res = res.fetchall()
+    cur.execute("""SELECT * FROM grometeras""")
+    res = cur.fetchall()
     res = [list(i) for i in res]
     maquinas = [i[4] for i in res]
     maquinas = sorted(set(maquinas))
@@ -58,25 +60,29 @@ def getGroms(con):
         for i in range(len(res)):
             if res[i][4] == m:
                 grometeras[m].append(res[i][2])
+    cur.close()
     return grometeras
 
 
-def getMaquinas(con):
+def getMaquinas(db):
+    con = mariadb.connect(**db)
     cur = con.cursor()
-    res = cur.execute("""SELECT * FROM maquinas""")
-    res = res.fetchall()
+    cur.execute("""SELECT * FROM maquinas""")
+    res = cur.fetchall()
     res = [list(i) for i in res]
     maqs = [i[0] for i in res]
     maquinas = {}
     for i in range(len(maqs)):
         maquinas[maqs[i]] = res[i]
+    cur.close()
     return maquinas
 
 
-def createMaquinas(apps, con):
+def createMaquinas(apps, db):
+    # con = mariadb.connect(**db)
     apps = getApps(apps)
-    grom = getGroms(con)
-    maqs = getMaquinas(con)
+    grom = getGroms(db)
+    maqs = getMaquinas(db)
     maquinas = {}
     for i in maqs:
         maquina = maqs[i]
@@ -93,18 +99,20 @@ def createMaquinas(apps, con):
 # -----------------------------------------------------------------------------
 
 
-def turnos(con):
+def turnos(db):
+    con = mariadb.connect(**db)
     cur = con
-    res = cur.execute("SELECT * FROM turnos;")
-    res = res.fetchall()
+    cur.execute("SELECT * FROM turnos;")
+    res = cur.fetchall()
     turnos = dict(res)
     return turnos
 
 
-def tiemposDeCambio(con):
-    cur = con
-    res = cur.execute("SELECT * FROM tiempo_cambio;")
-    res = res.fetchall()
+def tiemposDeCambio(db):
+    con = mariadb.connect(**db)
+    cur = con.cursor()
+    cur.execute("SELECT * FROM tiempo_cambio;")
+    res = cur.fetchall()
     tCambio = dict(res)
     return tCambio
 

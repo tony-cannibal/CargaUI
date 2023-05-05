@@ -24,19 +24,19 @@ def redeployDb():
     database.populatedb(con(dbase), maquinas, grometeras, procesos)
 
 
-def main(file: str, dbase: str, out: bool) -> dict:
+def main(file: str, dbase: dict, out: bool) -> dict:
     df, fecha, prioridad, area = fn.readFile(file)
 
     apps = carga.trimApps(df["50160"])
     prensas = carga.trimPrensas(df["10500"])
     auto = carga.trimAuto(df["10400"])
-    maquinas = carga.createMaquinas(apps, con(dbase))
+    maquinas = carga.createMaquinas(apps, dbase)
 
-    status = carga.specificStatus(auto, prensas, maquinas, con(dbase))
-    balanceCorte = carga.balance(maquinas, auto, "corte", area, con(dbase))
+    status = carga.specificStatus(auto, prensas, maquinas, dbase)
+    balanceCorte = carga.balance(maquinas, auto, "corte", area, dbase)
     balancePrensas = carga.balance(
-        maquinas, prensas, "prensa", area, con(dbase))
-    cambios = carga.cambios(auto, maquinas, area, con(dbase))
+        maquinas, prensas, "prensa", area, dbase)
+    cambios = carga.cambios(auto, maquinas, area, dbase)
     errores = carga.errores(status)
 
     if out:

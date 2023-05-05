@@ -1,13 +1,16 @@
 import pandas as pd
+import mariadb
 from . import functions as fn
 
 
-def turnos(con):
-    cur = con
-    res = cur.execute('SELECT * FROM turnos;')
-    res = res.fetchall()
+def turnos(db):
+    con = mariadb.connect(**db)
+    cur = con.cursor()
+    cur.execute('SELECT * FROM turnos;')
+    res = cur.fetchall()
     turnos = dict(res)
     return turnos
+
 
 def balance(maquinas, carga, tipo, area, con):
     turnosLocal = turnos(con)
@@ -38,7 +41,8 @@ def balance(maquinas, carga, tipo, area, con):
         if status['Input'][i] == 0:
             status['Diff'].append(0)
         else:
-            status['Diff'].append(status['Capacidad Total'][i] - status['Input'][i])
+            status['Diff'].append(status['Capacidad Total']
+                                  [i] - status['Input'][i])
 
     dStatus = pd.DataFrame.from_dict(status)
     return dStatus

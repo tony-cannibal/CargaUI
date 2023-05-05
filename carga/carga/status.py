@@ -1,4 +1,5 @@
 import pandas as pd
+import mariadb
 # from . import functions as fn
 
 
@@ -29,10 +30,11 @@ def app(maquina, terminal, apps):
         return False
 
 
-def procesos(con):
+def procesos(db: dict):
+    con = mariadb.connect(**db)
     cur = con.cursor()
-    res = cur.execute("""SELECT * FROM procesos""")
-    res = res.fetchall()
+    cur.execute("""SELECT * FROM procesos""")
+    res = cur.fetchall()
     res = [list(i) for i in res]
     procesos = {}
     for i in res:
