@@ -40,7 +40,7 @@ def readFile(file: str):
     return df, fecha, prioridad, area
 
 
-def basic_status(errors) -> dict:
+def basic_status(errors, missing_apps) -> dict:
     '''
     Return a dictionary with the general total number of
     errors found.
@@ -52,4 +52,5 @@ def basic_status(errors) -> dict:
     result['Grometeras'] = sum(raw['GromL']) + sum(raw['GromR'])
     result['Alturas'] = sum(raw['Alturas L']) + sum(raw['Alturas R'])
     result['Desf Medio'] = sum(raw['DesfMedio'])
+    result['Missing Apps'] = missing_apps
     return result

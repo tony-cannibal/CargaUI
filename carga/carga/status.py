@@ -75,8 +75,8 @@ def midStrip(proc, long, desf1, desf2):
         return ''
     if long < 240:
         return 'err'
-    dist2 = long - int(desf1)
-    if desf1 < 115 and dist2 < 115:
+    # dist2 = long - int(desf1)
+    if desf1 < 115:  # and dist2 < 115:
         return 'err'
     else:
         return 'ok'

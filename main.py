@@ -105,6 +105,8 @@ class App(tk.Tk):
         self.result_table.column('Alturas', width=70, anchor='center')
         self.result_table.heading('Desf Medio', text='Desf Medio')
         self.result_table.column('Desf Medio', width=100, anchor='center')
+        self.result_table.heading('Apps Falt.', text='Apps Falt.')
+        self.result_table.column('Apps Falt.', width=80, anchor='center')
         self.result_table.pack(padx=20, pady=0, expand=False)
         self.result_table.tag_configure(
             "even", background='white', foreground='black')
@@ -159,22 +161,23 @@ class App(tk.Tk):
             filetypes=filetypes)
         self.file_dir.set(file)
 
-    def populate_res_table(self):
+    def populate_res_table(self) -> None:
         apps = self.result['Aplicadores']
         proc = self.result['Proceso']
         grom = self.result['Grometeras']
         alt = self.result['Alturas']
         desf = self.result['Desf Medio']
+        m_apps = self.result['Missing Apps']
         table_length = len(self.result_table.get_children())
         if table_length > 0:
             for row in self.result_table.get_children():
                 self.result_table.delete(row)
             self.result_table.insert(
-                '', tk.END, values=(apps, proc, grom, alt, desf),
+                '', tk.END, values=(apps, proc, grom, alt, desf, m_apps),
                 tags=('odd',))
         else:
             self.result_table.insert(
-                '', tk.END, values=(apps, proc, grom, alt, desf),
+                '', tk.END, values=(apps, proc, grom, alt, desf, m_apps),
                 tags=('odd',))
 
     def populate_balance_table(self):

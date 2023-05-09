@@ -7,5 +7,4 @@ from .cambios import cambios
 from .balance import balance
 from .status import specificStatus
 from .errores import errores
-
-
+from .aplicadores import aplcadores_faltantes

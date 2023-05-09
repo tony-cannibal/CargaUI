@@ -1,6 +1,6 @@
 
 columns = ['Aplicadores', 'Proceso',
-           'Grometeras', 'Alturas', 'Desf Medio']
+           'Grometeras', 'Alturas', 'Desf Medio', 'Apps Falt.']
 
 columns2 = [
     'Maquina', 'UPH', 'Capacidad A', 'Capacidad B',

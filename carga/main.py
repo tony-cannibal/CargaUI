@@ -38,6 +38,7 @@ def main(file: str, dbase: dict, out: bool) -> dict:
         maquinas, prensas, "prensa", area, dbase)
     cambios = carga.cambios(auto, maquinas, area, dbase)
     errores = carga.errores(status)
+    aplicadores, missing_count = carga.aplcadores_faltantes(apps, auto)
 
     if out:
         path = file[:-5]
@@ -49,9 +50,11 @@ def main(file: str, dbase: dict, out: bool) -> dict:
                 writer, sheet_name="balance prensas", index=False)
             status.to_excel(writer, sheet_name="status", index=False)
             cambios.to_excel(writer, sheet_name="cambios", index=False)
+            aplicadores.to_excel(
+                writer, sheet_name='apps faltantes', index=False)
 
-    return (fn.basic_status(errores), balanceCorte.to_dict('list'), area,
-            prioridad, fecha)
+    return (fn.basic_status(errores, missing_count),
+            balanceCorte.to_dict('list'), area, prioridad, fecha)
 
 
 def say_hello():
