@@ -95,8 +95,8 @@ class App(tk.Tk):
 
         self.result_table = ttk.Treeview(
             self, columns=cn.columns, show='headings', height=1)
-        self.result_table.heading('Aplicadores', text='Aplicadores')
-        self.result_table.column('Aplicadores', width=70, anchor='center')
+        # self.result_table.heading('Aplicadores', text='Aplicadores')
+        # self.result_table.column('Aplicadores', width=70, anchor='center')
         self.result_table.heading('Proceso', text='Proceso')
         self.result_table.column('Proceso', width=70, anchor='center')
         self.result_table.heading('Grometeras', text='Grometeras')
@@ -162,7 +162,7 @@ class App(tk.Tk):
         self.file_dir.set(file)
 
     def populate_res_table(self) -> None:
-        apps = self.result['Aplicadores']
+        # apps = self.result['Aplicadores']
         proc = self.result['Proceso']
         grom = self.result['Grometeras']
         alt = self.result['Alturas']
@@ -173,11 +173,11 @@ class App(tk.Tk):
             for row in self.result_table.get_children():
                 self.result_table.delete(row)
             self.result_table.insert(
-                '', tk.END, values=(apps, proc, grom, alt, desf, m_apps),
+                '', tk.END, values=(proc, grom, alt, desf, m_apps),
                 tags=('odd',))
         else:
             self.result_table.insert(
-                '', tk.END, values=(apps, proc, grom, alt, desf, m_apps),
+                '', tk.END, values=(proc, grom, alt, desf, m_apps),
                 tags=('odd',))
 
     def populate_balance_table(self):

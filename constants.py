@@ -1,5 +1,5 @@
 
-columns = ['Aplicadores', 'Proceso',
+columns = ['Proceso',
            'Grometeras', 'Alturas', 'Desf Medio', 'Apps Falt.']
 
 columns2 = [

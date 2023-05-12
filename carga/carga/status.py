@@ -38,11 +38,13 @@ def procesos(db: dict):
     res = [list(i) for i in res]
     procesos = {}
     for i in res:
-        procesos[i[1]] = i[2]
+        procesos[i[2]] = i[3]
+    # print(procesos)
     return procesos
 
 
-def checkAltura(altura, terminalA, terminalM):
+def checkAltura(altura, terminalA, terminalM: str) -> str:
+    '''Check For Missing Crimp Heights'''
     if terminalA == '' and terminalM == '':
         return 'ok'
     elif altura == 0:
@@ -60,12 +62,13 @@ def checkAltura(altura, terminalA, terminalM):
         return 'ok'
 
 
-def midStrip(proc, long, desf1, desf2):
+def midStrip(proc: str, long: int, desf1: str, desf2: str) -> str:
     '''
-    Chech all non auto mid strip en return "ok" or "err" wheather they
+    ChecK all non auto mid strip en return "ok" or "err" wheather they
     comply with the established paramerters for correct non auto mid strips.
     '''
     desfMed = ['desforre med', 'sello desforre med']
+    min_dist = 95
     # TODO check length of mid strip
     # total length must not be < 240
     # both distances from each terminal must no be < 115
@@ -75,8 +78,8 @@ def midStrip(proc, long, desf1, desf2):
         return ''
     if long < 240:
         return 'err'
-    # dist2 = long - int(desf1)
-    if desf1 < 115:  # and dist2 < 115:
+    dist2 = long - int(desf1)
+    if desf1 < min_dist or dist2 < min_dist:
         return 'err'
     else:
         return 'ok'

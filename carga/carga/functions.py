@@ -27,7 +27,8 @@ def trimApps(df):
 
 def trimPrensas(df):
     columns = [0, 4, 5]
-    df.drop(df.columns[columns], axis=1, inplace=True)
+    if not df.empty:
+        df.drop(df.columns[columns], axis=1, inplace=True)
     return df
 
 # -----------------------------------------------------------------------------
