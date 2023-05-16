@@ -1,4 +1,5 @@
 import pandas as pd
+from pathlib import Path
 try:
     import carga
     from database import connection as con
@@ -43,6 +44,10 @@ def main(file: str, dbase: dict, out: bool) -> dict:
     if out:
         path = file[:-5]
         o_file = f"{path} resultado.xlsx"
+        check = Path(o_file)
+        if check.is_file():
+            o_file = f"{path} correccion.xlsx"
+
         with pd.ExcelWriter(o_file) as writer:
             errores.to_excel(writer, sheet_name="resumen", index=False)
             balanceCorte.to_excel(writer, sheet_name="balance", index=False)
